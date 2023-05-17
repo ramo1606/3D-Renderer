@@ -14,8 +14,8 @@ bool isRunning = false;
 static uint32_t* colorBuffer = NULL;
 static RenderTexture2D colorBufferTexture;
 
-static const int screenWidth = 800;
-static const int screenHeight = 600;
+static int screenWidth = 0;
+static int screenHeight = 0;
 
 void MyDrawGrid(void)
 {
@@ -60,7 +60,7 @@ void Render(void)
     BeginDrawing();
         ClearBackground(RED);
         MyDrawGrid();
-        ClearColorBuffer(0xFF0000FF); //ABGR
+        ClearColorBuffer(0xFF00FF00); //ABGR
         RenderColorBuffer();
     EndDrawing();
 }
@@ -73,12 +73,13 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "Rasterizer");
+    int currentMonitor = GetCurrentMonitor();
+    screenWidth = GetMonitorWidth(currentMonitor);
+    screenHeight = GetMonitorHeight(currentMonitor);
+    SetWindowSize(screenWidth, screenHeight);
+    SetWindowState(FLAG_FULLSCREEN_MODE);
 
-    // Mouse and Window variables
-    Vector2 mousePosition = { 0 };
-    Vector2 windowPosition = { 500, 200 };
-    Vector2 panOffset = mousePosition;
-    bool dragWindow = false;
+    // Window variables
     bool exitWindow = false;
 
     Setup();
@@ -91,26 +92,7 @@ int main(void)
     {
         //Window Update
         //----------------------------------------------------------------------------------
-        mousePosition = GetMousePosition();
-
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-        {
-            if (CheckCollisionPointRec(mousePosition, (Rectangle) { 0, 0, screenWidth, 20 }))
-            {
-                dragWindow = true;
-                panOffset = mousePosition;
-            }
-        }
-
-        if (dragWindow)
-        {
-            windowPosition.x += (mousePosition.x - panOffset.x);
-            windowPosition.y += (mousePosition.y - panOffset.y);
-
-            if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) dragWindow = false;
-
-            SetWindowPosition(windowPosition.x, windowPosition.y);
-        }
+        if (IsKeyDown(KEY_ESCAPE)) exitWindow = true;
 
         // Update
         //----------------------------------------------------------------------------------
