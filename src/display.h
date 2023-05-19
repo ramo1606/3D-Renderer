@@ -7,6 +7,7 @@ void InitiRaylibWindow(void);
 void DestroyRaylibWindow(void);
 
 /* Drawing Functions */
+void RDrawPixel(int x, int y, Color color);
 void RDrawGrid(Color color);
 void RDrawRectangle(int x, int y, int width, int height, Color color);
 

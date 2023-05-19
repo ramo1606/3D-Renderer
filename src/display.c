@@ -30,13 +30,19 @@ void DestroyRaylibWindow(void)
     CloseWindow();
 }
 
+void RDrawPixel(int x, int y, Color color)
+{
+    if(x > 0 && x < screenWidth && y > 0 && y < screenHeight)
+        colorBuffer[(screenWidth * y) + x] = color;
+}
+
 void RDrawGrid(Color color)
 {
     for (int y = 25; y < screenHeight; y += 50)
     {
         for (int x = 25; x < screenWidth; x += 50)
         {
-            colorBuffer[(screenWidth * y) + x] = color;
+            RDrawPixel(x, y, color);
         }
     }
 }
@@ -48,7 +54,7 @@ void RDrawRectangle(int x, int y, int width, int height, Color color)
     {
         for (int j = x; j < x + width; j++)
         {
-            colorBuffer[(screenWidth * i) + j] = color;
+            RDrawPixel(i, j, color);
         }
     }
 }
