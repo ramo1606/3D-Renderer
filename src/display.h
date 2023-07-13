@@ -5,6 +5,8 @@
 /* Window Creation and Destroy */
 void InitiRaylibWindow(void);
 void DestroyRaylibWindow(void);
+int GetWindowWidth();
+int GetWindowHeight();
 
 /* Drawing Functions */
 void RDrawPixel(int x, int y, Color color);
