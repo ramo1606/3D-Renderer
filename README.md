@@ -1,20 +1,39 @@
-# Simple and portable CMake template for raylib
+# Rasterizer
 
-This is a basic project template for raylib using CMake and has been tested with Visual Studio, Visual Studio Code and CLion.
+A simple 3D software renderer written in C89, using raylib as a backend.
 
-The master branch of the raylib source code is downloaded using CMake FetchContent from github and compiled from source as it is much easier than including prebuilt binaries for every platform and configuration.
+## Features
 
-Building from the cmake file will build both raylib and `src/main.c` which includes a basic example of a raylib program.
+- **Core Data Structures:** Vectors, meshes, triangles
+- **Rendering Pipeline:** Basic ray tracing/rasterization (implementation in progress)
+- **Mathematical Utilities:** Vector/matrix operations
+- **Build System:** CMake
+- **Testing Framework:** minunit
 
-## Asset handling
+## Getting Started
 
-The example in `src/main.c` uses an example image located in the `assets` folder.
-To load it we use `ASSETS_PATH`, which is a string macro with the *absolute* path "assets" directory.
-This macro is defined in the `CMakeLists.txt` file on line `23`.
- 
-If you plan on releasing or sharing your game consider manually setting the value of the `ASSETS_PATH` macro.
+1. **Clone:** `git clone https://github.com/ramo1606/3D-Renderer.git`
+2. **Build:** 
+   - `cd Rasterizer`
+   - `mkdir build && cd build`
+   - `cmake ..`
+   - `cmake --build .`
+3. **Run:** `./Rasterizer` (from the `build` directory)
 
-In C you can concatenate string literals by putting them next to each other, 
-eg: `"A" "B"` is `"AB"`. So ASSETS_PATH `"test.png"` becomes `"/path/to/your/assets/test.png"`
+## Project Structure
 
-If you wanna share your game with others you should set ASSETS_PATH to be a *relative* path like "./assets/". You can do this in the CMakeLists.txt file. 
+- **assets/:** Store your textures, 3D models, or other assets.
+- **build/:** The output directory for the build process.
+- **docs/:**  (Optional) Contains any documentation you create.
+- **include/rasterizer/:** Public header files that define the interface of your renderer.
+- **src/:** Source code of the renderer, organized into modules:
+    - **core/:** Fundamental data structures and algorithms.
+    - **math/:** Mathematical helper functions.
+    - **rendering/:** Rendering logic and interaction with raylib.
+- **test/:** Unit tests, mirroring the structure of the `src` directory.
+- **CMakeLists.txt:** CMake configuration for building the project and running tests.
+
+
+## Running Tests
+
+To run the unit tests, use `ctest` from the `build` directory.
